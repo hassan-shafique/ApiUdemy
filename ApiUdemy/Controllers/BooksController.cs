@@ -29,6 +29,11 @@ namespace ApiUdemy.Controllers
         {
             return Ok(booksService.GetBookById(id));
         }
+        [HttpGet]
+        public IActionResult GetBooksOfAuthors(string _author)
+        {
+            return Ok(booksService.GetBooksofAuthor(_author));
+        }
         [HttpPut("Update-Book/{id}")]
         public IActionResult UpdateBook(int id, [FromBody]BookVM book)
         {

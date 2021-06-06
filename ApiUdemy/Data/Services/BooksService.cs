@@ -58,6 +58,22 @@ namespace ApiUdemy.Data.Services
             }).FirstOrDefault();
             return _bookWithAuthors;
         }
+        
+        public BookWithAuthorsVM GetBooksofAuthor(string _authorName)
+        {
+            var _booksOfAuthors = _context.LibBook.Where(n => n.Book_Authors.Equals(_authorName)).Select(book => new BookWithAuthorsVM()
+            {
+                Book_Title = book.Book_Title,
+                Description = book.Description,
+                Edition = book.Edition,
+                isRead = book.isRead,
+                readTime = book.isRead ? book.readTime.Value : null,
+                Genre = book.Genre,
+                PublisherName = book.Publisher.Publisher_Name,
+                AuthorNames = book.Book_Authors.Select(n => n.Author.AuthorName).ToList()
+            }).FirstOrDefault();
+            return _booksOfAuthors;
+        }
         public LibBook UpdateBook(int id, BookVM book)
         {
             var _book = _context.LibBook.FirstOrDefault(n => n.BookId == id);
